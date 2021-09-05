@@ -32,4 +32,36 @@ class CategoryTest extends TestCase
         );
     }
 
+    public function testCreate()
+    {
+        // Test: passing only name
+        $category = Category::create([
+            'name' => 'test1'
+        ]);
+        $category->refresh();
+        $this->assertEquals('test1', $category->name);
+        $this->assertNull($category->description);
+        $this->assertTrue($category->is_active);
+    
+        // Test: passing null in description    
+        $category = Category::create([
+            'name' => 'test1',
+            'description' => null
+        ]);
+        $this->assertNull($category->description);
+
+        // Test: passing a value in description
+        $category = Category::create([
+            'name' => 'test1',
+            'description' => 'test_description'
+        ]);
+        $this->assertEquals('test_description', $category->description);
+
+        // Test: passing is_active=true
+        $category = Category::create([
+            'name' => 'test1',
+            'is_active' => true
+        ]);
+        $this->assertTrue($category->is_active);
+    }
 }

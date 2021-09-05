@@ -21,7 +21,6 @@ class CategoryTest extends TestCase
     public function testFillableAttribute()
     {
         $fillable = ['name', 'description', 'is_active'];
-        $category = new Category;
 
         $this->assertEquals($fillable, $this->category ->getFillable());
     }
@@ -49,5 +48,11 @@ class CategoryTest extends TestCase
             $this->assertContains($date, $this->category ->getDates());
         }
         $this->assertCount(count($dates), $this->category ->getDates());
+    }
+
+    public function testCastsAttribute()
+    {
+        $casts =['is_active' => 'boolean'];
+        $this->assertEquals($casts, $this->category->getCasts());
     }
 }
